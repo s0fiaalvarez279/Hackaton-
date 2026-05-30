@@ -1,5 +1,9 @@
 <?php
 $APP_NAME = 'RutaX · Medellín Movilidad OS';
+
+// Rutas de imágenes (desde views/home/Abogados.php subimos dos niveles)
+$logoPath = '../../images/logo.png';
+$faviconPath = '../../images/favico.png';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -7,6 +11,13 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Abogados Especializados - <?php echo htmlspecialchars($APP_NAME); ?></title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $faviconPath; ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo $faviconPath; ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $faviconPath; ?>">
+    <link rel="shortcut icon" type="image/png" href="<?php echo $faviconPath; ?>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -87,6 +98,29 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
         
+        /* ========== LOGO CIRCULAR ========== */
+        .circular-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .circular-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .sidebar-logo .circular-logo {
+            width: 44px;
+            height: 44px;
+        }
+        
         /* ========== PANEL LATERAL ========== */
         .panel {
             position: fixed;
@@ -143,6 +177,7 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
         .scroll {
             overflow-y: auto;
             flex: 1;
+            padding: 0;
         }
         .scroll::-webkit-scrollbar {
             width: 6px;
@@ -313,11 +348,6 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
         .contact-btn:hover {
             background: #1e5a9c;
         }
-        .logo-icon {
-            font-size: 1.4rem;
-            margin-right: 0.5rem;
-            color: var(--accent);
-        }
         .sidebar-logo {
             display: flex;
             align-items: center;
@@ -330,8 +360,10 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
 <!-- BARRA SUPERIOR -->
 <div class="topbar">
     <button class="pill" id="btnMenu"><i class="fa-solid fa-bars"></i><span>Menú</span></button>
-    <div class="pill" style="cursor:default">
-        <i class="fa-solid fa-car-side logo-icon"></i>
+    <div class="pill" style="cursor:default; gap:0.75rem;">
+        <div class="circular-logo">
+            <img src="<?php echo $logoPath; ?>" alt="RutaX Logo">
+        </div>
         <span class="live"></span>
         <span class="app-title-text"><?php echo htmlspecialchars($APP_NAME); ?></span>
         <span class="sm:hidden">Abogados</span>
@@ -345,21 +377,19 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
 <aside class="panel sidebar hidden" id="sidebar">
     <header>
         <div class="sidebar-logo">
-            <i class="fa-solid fa-traffic-light fa-2x text-amber-500"></i>
-            <div><h3>MIMS</h3><small>Medellín Movilidata OS</small></div>
+            <div class="circular-logo">
+                <img src="<?php echo $logoPath; ?>" alt="RutaX Logo">
+            </div>
+            <div><h3>RutaX</h3><small>Medellín Movilidata OS</small></div>
         </div>
         <button class="icon-btn" id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
     </header>
     <div class="scroll">
         <nav class="menu">
-            <div class="title">Navegación</div>
-            <a href="index.php"><i class="fa-solid fa-map-location-dot"></i> Mapa en vivo</a>
-            <a href="infracciones.php"><i class="fa-solid fa-file-lines"></i> Infracciones</a>
-            <a href="agentes.php"><i class="fa-solid fa-shield-halved"></i> Agentes</a>
-            <a href="abogados.php" class="active"><i class="fa-solid fa-gavel"></i> Abogados</a>
-            <a href="#"><i class="fa-solid fa-users"></i> Veedores</a>
-            <a href="#"><i class="fa-solid fa-gavel"></i> Audiencias</a>
-            <a href="#"><i class="fa-solid fa-chart-pie"></i> Reportes</a>
+            <div class="title">Navegación principal</div>
+            <a href="Infracciones.php"><i class="fa-solid fa-file-lines"></i> Infracciones</a>
+            <a href="Agentes.php"><i class="fa-solid fa-shield-halved"></i> Agentes</a>
+            <a href="Abogados.php" class="active"><i class="fa-solid fa-gavel"></i> Abogados</a>
         </nav>
     </div>
     <footer>RutaX · TransiControl · SIMIT · Asesoría legal</footer>
@@ -367,7 +397,7 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
 
 <!-- CONTENIDO PRINCIPAL -->
 <div class="main-content" id="mainContent">
-    <h1 class="section-title">⚖️ Abogados Especializados</h1>
+    <h1 class="section-title">Abogados Especializados</h1>
     <div id="lawyersContainer"></div>
 </div>
 
@@ -486,7 +516,7 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             btn.addEventListener('click', (e) => {
                 const name = btn.dataset.name;
                 const phone = btn.dataset.phone;
-                alert(`📞 Solicitud enviada a ${name}\nTeléfono: ${phone}\n(Un asesor se comunicará pronto)`);
+                alert(`Solicitud enviada a ${name}\nTeléfono: ${phone}\n(Un asesor se comunicará pronto)`);
             });
         });
     }

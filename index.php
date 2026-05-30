@@ -23,34 +23,7 @@ switch ($path) {
         $home->index();
         break;
 
-    // === SECCIONES ESTÁTICAS (páginas informativas) ===
-    case '/infracciones':
-        require_once __DIR__ . '/infracciones.php';
-        break;
-
-    case '/agentes':
-        require_once __DIR__ . '/agentes.php';
-        break;
-
-    case '/abogados':
-        require_once __DIR__ . '/abogados.php';
-        break;
-
-    case '/veedores':
-        require_once __DIR__ . '/veedores.php';
-        break;
-
-    case '/audiencias':
-        require_once __DIR__ . '/audiencias.php';
-        break;
-
-    case '/reportes':
-        require_once __DIR__ . '/reportes.php';
-        break;
-
-    case '/reglamento':
-        require_once __DIR__ . '/reglamento.php';
-        break;
+  
 
     // === AUTENTICACIÓN ===
     case '/login':

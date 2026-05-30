@@ -1,17 +1,35 @@
 <?php
+/**
+ * RutaX · Medellín Movilidata OS
+ * Página de Infracciones de Tránsito
+ * @version 3.2 - Sin emojis, con favicon y logo circular
+ */
+
 $APP_NAME = 'RutaX · Medellín Movilidad OS';
+
+// Rutas de assets (desde views/home/Infracciones.php)
+$logoPath = '../../images/logo.png';
+$faviconPath = '../../images/favico.png';
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Infracciones - <?php echo htmlspecialchars($APP_NAME); ?></title>
+    <title>Infracciones - <?= htmlspecialchars($APP_NAME) ?></title>
+    
+    <!-- Favicons multiplataforma -->
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= $faviconPath ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= $faviconPath ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= $faviconPath ?>">
+    <link rel="shortcut icon" type="image/png" href="<?= $faviconPath ?>">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
-        /* ========== VARIABLES Y ESTILOS GLOBALES ========== */
         :root {
             --bg: #0b1220;
             --card: #111a2e;
@@ -24,9 +42,9 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             --warn: #f59e0b;
             --danger: #ef4444;
         }
-        * {
-            box-sizing: border-box;
-        }
+        
+        * { box-sizing: border-box; }
+        
         body {
             margin: 0;
             background: var(--bg);
@@ -35,7 +53,7 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             overflow-x: hidden;
         }
         
-        /* ========== BARRA SUPERIOR ========== */
+        /* Barra Superior */
         .topbar {
             position: fixed;
             top: 1rem;
@@ -47,6 +65,7 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             align-items: center;
             pointer-events: none;
         }
+        
         .pill {
             pointer-events: auto;
             display: inline-flex;
@@ -63,14 +82,13 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             cursor: pointer;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
             transition: 0.2s;
+            text-decoration: none;
         }
+        
         .pill:hover {
             background: rgba(17, 26, 46, 1);
         }
-        @media (max-width: 640px) {
-            .pill span { display: none; }
-            .app-title-text { display: none; }
-        }
+        
         .live {
             display: inline-block;
             width: 8px;
@@ -80,13 +98,37 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
             animation: pulse 1.8s infinite;
         }
+        
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
-            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+            70%  { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
         
-        /* ========== PANEL LATERAL ========== */
+        /* Logo circular */
+        .circular-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .circular-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .sidebar-logo .circular-logo {
+            width: 44px;
+            height: 44px;
+        }
+        
+        /* Sidebar */
         .panel {
             position: fixed;
             top: 0;
@@ -101,17 +143,21 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
             width: 100%;
         }
+        
         @media (min-width: 640px) {
             .sidebar { width: 340px; }
         }
+        
         .sidebar {
             left: 0;
             border-right: 1px solid var(--border);
             transform: translateX(0);
         }
+        
         .sidebar.hidden {
             transform: translateX(-100%);
         }
+        
         .panel header {
             display: flex;
             justify-content: space-between;
@@ -119,15 +165,7 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             padding: 1.1rem 1.2rem;
             border-bottom: 1px solid var(--border);
         }
-        .panel header h3 {
-            margin: 0;
-            font-size: 1.05rem;
-            font-weight: 700;
-        }
-        .panel header small {
-            color: var(--muted);
-            font-size: 0.72rem;
-        }
+        
         .icon-btn {
             background: transparent;
             border: none;
@@ -136,33 +174,18 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             padding: 0.4rem;
             border-radius: 0.5rem;
         }
+        
         .icon-btn:hover {
             background: rgba(255, 255, 255, 0.08);
         }
+        
         .scroll {
             overflow-y: auto;
             flex: 1;
-        }
-        .scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .scroll::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 3px;
+            padding: 1rem;
         }
         
-        /* ========== MENÚ ========== */
-        nav.menu {
-            padding: 0.5rem 0.75rem 1.25rem;
-        }
-        nav.menu .title {
-            padding: 0.5rem 0.5rem;
-            font-size: 0.68rem;
-            font-weight: 600;
-            color: var(--muted);
-            text-transform: uppercase;
-        }
-        nav.menu a {
+        .menu a {
             display: flex;
             align-items: center;
             gap: 0.7rem;
@@ -174,37 +197,32 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             font-weight: 500;
             transition: 0.15s;
         }
-        nav.menu a i {
+        
+        .menu a i {
             color: var(--accent);
             width: 18px;
             text-align: center;
         }
-        nav.menu a:hover {
-            background: rgba(255, 255, 255, 0.06);
+        
+        .menu a:hover, .menu a.active {
+            background: rgba(59, 130, 246, 0.2);
             color: #fff;
         }
-        .panel footer {
-            padding: 0.85rem 1rem;
-            border-top: 1px solid var(--border);
-            font-size: 0.7rem;
-            color: var(--muted);
-        }
         
-        /* ========== CONTENIDO PRINCIPAL ========== */
+        /* Contenido Principal */
         .main-content {
             margin-left: 0;
             padding: 90px 1.5rem 2rem 1.5rem;
             transition: margin-left 0.45s;
             max-width: 1200px;
         }
+        
         @media (min-width: 640px) {
-            .main-content {
-                margin-left: 0;
-            }
             .main-content.sidebar-open {
                 margin-left: 340px;
             }
         }
+        
         .section-title {
             font-size: 1.8rem;
             font-weight: 700;
@@ -213,18 +231,21 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             border-left: 4px solid #fbbf24;
             padding-left: 1rem;
         }
+        
         .infraction-item {
             background: #1e293b;
             border-radius: 0.75rem;
             padding: 1.2rem;
             margin-bottom: 1rem;
             border: 1px solid var(--border);
-            transition: transform 0.2s;
+            transition: transform 0.2s, border-color 0.2s;
         }
+        
         .infraction-item:hover {
             transform: translateX(5px);
             border-color: var(--accent);
         }
+        
         .infraction-header {
             display: flex;
             justify-content: space-between;
@@ -233,34 +254,20 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             flex-wrap: wrap;
             gap: 0.5rem;
         }
+        
         .infraction-title {
             font-size: 1.2rem;
             font-weight: 700;
             color: #fbbf24;
         }
+        
         .infraction-penalty {
             color: #f87171;
             font-weight: 600;
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
-        .infraction-risk {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            border-top: 1px dashed var(--border);
-            padding-top: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        .logo-icon {
-            font-size: 1.4rem;
-            margin-right: 0.5rem;
-            color: var(--accent);
-        }
-        .sidebar-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+        
         .badge-sml {
             background: #1e3a8a;
             padding: 0.2rem 0.6rem;
@@ -268,22 +275,44 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
             font-size: 0.7rem;
             font-weight: 600;
         }
+        
+        footer {
+            padding: 0.85rem 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+        
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
     </style>
 </head>
 <body>
 
-<!-- BARRA SUPERIOR (igual que en index.php) -->
+<!-- BARRA SUPERIOR -->
 <div class="topbar">
-    <button class="pill" id="btnMenu"><i class="fa-solid fa-bars"></i><span>Menú</span></button>
-    <div class="pill" style="cursor:default">
-        <i class="fa-solid fa-car-side logo-icon"></i>
+    <button class="pill" id="btnMenu">
+        <i class="fa-solid fa-bars"></i>
+        <span>Menú</span>
+    </button>
+    
+    <div class="pill" style="cursor:default; gap:0.75rem;">
+        <div class="circular-logo">
+            <img src="<?= $logoPath ?>" alt="RutaX Logo">
+        </div>
         <span class="live"></span>
-        <span class="app-title-text"><?php echo htmlspecialchars($APP_NAME); ?></span>
+        <span class="app-title-text"><?= htmlspecialchars($APP_NAME) ?></span>
         <span class="sm:hidden">Infracciones</span>
     </div>
+    
     <div style="display: flex; gap: 0.5rem;">
-        <!-- Botones de navegación rápida (opcional) -->
-        <a href="index.php" class="pill" style="text-decoration: none;"><i class="fa-solid fa-map"></i><span>Mapa</span></a>
+        <a href="index.php" class="pill">
+            <i class="fa-solid fa-map"></i>
+            <span>Mapa</span>
+        </a>
     </div>
 </div>
 
@@ -291,132 +320,149 @@ $APP_NAME = 'RutaX · Medellín Movilidad OS';
 <aside class="panel sidebar hidden" id="sidebar">
     <header>
         <div class="sidebar-logo">
-            <i class="fa-solid fa-traffic-light fa-2x text-amber-500"></i>
-            <div><h3>MIMS</h3><small>Medellín Movilidata OS</small></div>
+            <div class="circular-logo">
+                <img src="<?= $logoPath ?>" alt="RutaX Logo">
+            </div>
+            <div>
+                <h3>RutaX</h3>
+                <small>Medellín Movilidata OS</small>
+            </div>
         </div>
-        <button class="icon-btn" id="closeSidebar"><i class="fa-solid fa-xmark"></i></button>
+        <button class="icon-btn" id="closeSidebar">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
     </header>
+    
     <div class="scroll">
         <nav class="menu">
-            <div class="title">Navegación</div>
-            <a href="index.php"><i class="fa-solid fa-map-location-dot"></i> Mapa en vivo</a>
-            <a href="infracciones.php" class="active" style="background: rgba(59,130,246,0.2);"><i class="fa-solid fa-file-lines"></i> Infracciones</a>
-            <a href="#"><i class="fa-solid fa-scale-balanced"></i> Reglamento</a>
-            <a href="#"><i class="fa-solid fa-shield-halved"></i> Agentes</a>
-            <a href="#"><i class="fa-solid fa-users"></i> Veedores</a>
-            <a href="#"><i class="fa-solid fa-gavel"></i> Abogados</a>
-            <a href="#"><i class="fa-solid fa-gavel"></i> Audiencias</a>
-            <a href="#"><i class="fa-solid fa-chart-pie"></i> Reportes</a>
+            <div class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-3">Navegación principal</div>
+            <a href="Infracciones.php" class="active"><i class="fa-solid fa-file-lines"></i> Infracciones</a>
+            <a href="Agentes.php"><i class="fa-solid fa-shield-halved"></i> Agentes</a>
+            <a href="Abogados.php"><i class="fa-solid fa-gavel"></i> Abogados</a>
         </nav>
     </div>
-    <footer>RutaX · TransiControl · SIMIT · Catálogo de infracciones</footer>
+    
+    <footer>
+        RutaX · TransiControl · SIMIT · Catálogo de Infracciones
+    </footer>
 </aside>
 
 <!-- CONTENIDO PRINCIPAL -->
 <div class="main-content" id="mainContent">
-    <h1 class="section-title">⚠️ Infracciones Comunes y sus Consecuencias</h1>
+    <h1 class="section-title">Infracciones Comunes y Sus Consecuencias</h1>
     
     <div class="infraction-item">
         <div class="infraction-header">
-            <h2 class="infraction-title">🚗 Exceso de Velocidad</h2>
+            <h2 class="infraction-title">Exceso de Velocidad</h2>
             <span class="badge-sml">Alta incidencia</span>
         </div>
-        <div class="infraction-penalty">💰 Multa 15-30 SMLDV + Inmovilización del vehículo</div>
-        <div class="infraction-risk">⚠️ Aumenta 80% el riesgo de accidentes mortales. La velocidad es la principal causa de siniestros fatales.</div>
+        <div class="infraction-penalty">Multa de 15 a 30 SMLDV + Inmovilización del vehículo</div>
+        <div class="text-slate-400 text-sm mt-2">
+            Aumenta significativamente el riesgo de accidentes mortales. 
+            Es una de las principales causas de siniestros viales.
+        </div>
     </div>
     
     <div class="infraction-item">
         <div class="infraction-header">
-            <h2 class="infraction-title">🍺 Conducir en Estado de Embriaguez</h2>
+            <h2 class="infraction-title">Conducir en Estado de Embriaguez</h2>
             <span class="badge-sml">Grave</span>
         </div>
-        <div class="infraction-penalty">💰 Multa 30 SMLDV + Suspensión de licencia 6-10 años</div>
-        <div class="infraction-risk">⚠️ Causa el 40% de las muertes en accidentes de tránsito. Pérdida total de reflejos.</div>
+        <div class="infraction-penalty">Multa de 30 SMLDV + Suspensión de licencia de 6 a 10 años</div>
+        <div class="text-slate-400 text-sm mt-2">
+            Representa una de las mayores causas de muertes en accidentes de tránsito.
+        </div>
     </div>
     
     <div class="infraction-item">
         <div class="infraction-header">
-            <h2 class="infraction-title">🔢 Placas Adulteradas o Falsas</h2>
+            <h2 class="infraction-title">Placas Adulteradas o Falsas</h2>
             <span class="badge-sml">Delito</span>
         </div>
-        <div class="infraction-penalty">💰 Multa 8 SMLDV + Inmovilización + Posible comiso del vehículo</div>
-        <div class="infraction-risk">⚠️ Constituye un delito penal. La falsedad documental puede llevar a prisión.</div>
+        <div class="infraction-penalty">Multa de 8 SMLDV + Inmovilización + Posible comiso</div>
+        <div class="text-slate-400 text-sm mt-2">
+            Constituye un delito penal que puede derivar en sanciones judiciales.
+        </div>
     </div>
     
     <div class="infraction-item">
         <div class="infraction-header">
-            <h2 class="infraction-title">🪑 No Usar Cinturón de Seguridad</h2>
+            <h2 class="infraction-title">No Usar Cinturón de Seguridad</h2>
             <span class="badge-sml">Frecuente</span>
         </div>
-        <div class="infraction-penalty">💰 Multa 15 SMLDV</div>
-        <div class="infraction-risk">⚠️ Reduce un 75% la probabilidad de lesiones graves en caso de choque.</div>
+        <div class="infraction-penalty">Multa de 15 SMLDV</div>
+        <div class="text-slate-400 text-sm mt-2">
+            Reduce drásticamente la protección en caso de colisión.
+        </div>
     </div>
     
     <div class="infraction-item">
         <div class="infraction-header">
-            <h2 class="infraction-title">📄 Conducir sin Licencia Válida</h2>
+            <h2 class="infraction-title">Conducir sin Licencia Válida</h2>
             <span class="badge-sml">Grave</span>
         </div>
-        <div class="infraction-penalty">💰 Multa 30 SMLDV + Inmovilización del vehículo</div>
-        <div class="infraction-risk">⚠️ Inhabilita la posibilidad de reclamar seguros. Delito penal reincidente.</div>
+        <div class="infraction-penalty">Multa de 30 SMLDV + Inmovilización del vehículo</div>
+        <div class="text-slate-400 text-sm mt-2">
+            Inhabilita reclamaciones de seguro y puede generar sanciones adicionales.
+        </div>
     </div>
     
     <div class="infraction-item">
         <div class="infraction-header">
-            <h2 class="infraction-title">🔄 Transitar en Contravía</h2>
+            <h2 class="infraction-title">Transitar en Contravía</h2>
             <span class="badge-sml">Peligroso</span>
         </div>
-        <div class="infraction-penalty">💰 Multa 30 SMLDV + Inmovilización</div>
-        <div class="infraction-risk">⚠️ Genera choques frontales letales. Alta probabilidad de muerte inmediata.</div>
-    </div>
-    
-    <div class="infraction-item">
-        <div class="infraction-header">
-            <h2 class="infraction-title">🏍️ Moto Modificada / Ilegal</h2>
-            <span class="badge-sml">Técnica</span>
+        <div class="infraction-penalty">Multa de 30 SMLDV + Inmovilización</div>
+        <div class="text-slate-400 text-sm mt-2">
+            Genera alto riesgo de choques frontales con consecuencias fatales.
         </div>
-        <div class="infraction-penalty">💰 Multa variable (hasta 30 SMLDV) + Inmovilización</div>
-        <div class="infraction-risk">⚠️ Afecta la estabilidad del vehículo y contamina el medio ambiente.</div>
     </div>
     
     <div class="infraction-item">
         <div class="infraction-header">
-            <h2 class="infraction-title">🚦 Pasar la Luz Roja</h2>
+            <h2 class="infraction-title">Pasar Luz Roja</h2>
             <span class="badge-sml">Urbano</span>
         </div>
-        <div class="infraction-penalty">💰 Multa 30 SMLDV</div>
-        <div class="infraction-risk">⚠️ Causa el 25% de los accidentes en intersecciones urbanas.</div>
+        <div class="infraction-penalty">Multa de 30 SMLDV</div>
+        <div class="text-slate-400 text-sm mt-2">
+            Causa una gran cantidad de accidentes en intersecciones.
+        </div>
     </div>
     
     <div class="infraction-item">
         <div class="infraction-header">
-            <h2 class="infraction-title">📱 Usar Celular al Conducir</h2>
+            <h2 class="infraction-title">Usar Celular al Conducir</h2>
             <span class="badge-sml">Distracción</span>
         </div>
-        <div class="infraction-penalty">💰 Multa 15 SMLDV</div>
-        <div class="infraction-risk">⚠️ Multiplica por 4 el riesgo de accidente. La reacción se retrasa 2 segundos.</div>
+        <div class="infraction-penalty">Multa de 15 SMLDV</div>
+        <div class="text-slate-400 text-sm mt-2">
+            Aumenta considerablemente el tiempo de reacción y el riesgo de accidente.
+        </div>
     </div>
 </div>
 
 <script>
-    // Control del sidebar (igual que en index.php)
-    const sb = document.getElementById('sidebar');
+    // Control del Sidebar
+    const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('mainContent');
-    document.getElementById('btnMenu').onclick = () => {
-        sb.classList.toggle('hidden');
+    
+    document.getElementById('btnMenu').addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
         if (window.innerWidth >= 640) {
             mainContent.classList.toggle('sidebar-open');
         }
-    };
-    document.getElementById('closeSidebar').onclick = () => {
-        sb.classList.add('hidden');
-        mainContent.classList.remove('sidebar-open');
-    };
+    });
     
-    // Ajuste por tamaño de pantalla
+    document.getElementById('closeSidebar').addEventListener('click', () => {
+        sidebar.classList.add('hidden');
+        mainContent.classList.remove('sidebar-open');
+    });
+    
+    // Ajuste inicial según tamaño de pantalla
     if (window.innerWidth >= 640) {
         mainContent.classList.remove('sidebar-open');
     }
 </script>
+
 </body>
 </html>
