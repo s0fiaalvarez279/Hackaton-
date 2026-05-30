@@ -39,7 +39,15 @@ $google_configured = ($google_client_id !== 'TU_CLIENT_ID_DE_GOOGLE.apps.googleu
     <div class="header-container">
         <a href="<?= APP_URL ?>/" class="logo-link">
             <i class="fas fa-traffic-light"></i>
+<<<<<<< HEAD
             <span>Transi<span>Control</span></span>
+=======
+<<<<<<< HEAD
+            <span>Transi<span>Control</span></span> 
+=======
+            <span>Transi<span>Control</span></span>
+>>>>>>> de973c3c64ca69fbfc8cc06d37143c6990d9aafb
+>>>>>>> 6234cab8e71b79bb5937e534df305a343dee8dad
         </a>
         <a href="<?= APP_URL ?>/" class="back-link">
             <i class="fas fa-arrow-left"></i> Regresar

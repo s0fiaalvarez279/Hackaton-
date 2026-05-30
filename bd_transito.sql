@@ -59,4 +59,12 @@ INSERT INTO seguimiento_transito (id_usuario, id_transito, estado, fecha_inicio)
 -- Insertar reportes de ejemplo
 INSERT INTO reportes_transito (id_seguimiento, puntuacion, comentario, fecha_reporte) VALUES
 (1, 9, 'Conducción responsable', '2024-01-20'),
+<<<<<<< HEAD
 (2, 5, 'Exceso de velocidad detectado', '2024-02-25');
+=======
+<<<<<<< HEAD
+(2, 5, 'Exceso de velocidad detectado', '2024-02-25');
+=======
+(2, 5, 'Exceso de velocidad detectado', '2024-02-25');
+>>>>>>> de973c3c64ca69fbfc8cc06d37143c6990d9aafb
+>>>>>>> 6234cab8e71b79bb5937e534df305a343dee8dad
