@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-75.57706133, 6.21727157]
+      },
+      "properties": {
+        "id": 1,
+        "clase": "Choque",
+        "gravedad": "MUERTO",
+        "direccion": "CR 49 CL 16",
+        "barrio": "Villa Carlota",
+        "comuna": "El Poblado",
+        "fecha": "2020-12-01",
+        "hora": "2:00:00 a. m.",
+        "dia_nombre": "MARTES"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-75.6065334, 6.27672238]
+      },
+      "properties": {
+        "id": 2,
+        "clase": "Choque",
+        "gravedad": "MUERTO",
+        "direccion": "CL 62 CR 95 A",
+        "barrio": "Fuente Clara",
+        "comuna": "Robledo",
+        "fecha": "2020-01-01",
+        "hora": "4:42:00 p. m.",
+        "dia_nombre": "MIÉRCOLES"
+      }
+    }
+  ]
+}
